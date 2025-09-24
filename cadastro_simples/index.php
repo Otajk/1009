@@ -1,6 +1,6 @@
 <?php
     include 'conexao.php';
-
+    include 'excluir.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,9 +42,10 @@
             
             while($row = $resultado->fetch_assoc()){
                 echo "<tr>
-                <td>{$row['id']}</td>
+                <td id='id'>{$row['id']}</td>
                 <td>{$row['nome']}</td>
                 <td>{$row['email']}</td>
+                <td><form method='POST' action='index.php'><button type='submit' class='butao'>Delete</button></td>
                 
                 <tr>";
                 
