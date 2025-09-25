@@ -11,49 +11,65 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Conexão com bnco de dados MySQL usando PHP</h2>
+    <div id="container">
+    <div id='title'>
+    <h2>Conexão com banco de dados MySQL usando PHP</h2>
     <p>Este exemplo demonstra como conectar-se a um banco de dados MySQL USER</p>
-    <form action="salvar.php" method="post">
+    </div>
+    <form action="salvar.php" method="post" id='formulario'>
+        <div>
         <label for="nome">Nome: </label>
-        <input type="text" name="nome" placeholder="Nome: " required><br><br>
+        <input type="text" name="nome" placeholder="Insira seu nome aqui.. " required><br><br>
+        </div><div>
         <label for="email">Email: </label>
-        <input type="text" name="email" placeholder="email: " required><br><br>
-
+        <input type="email" name="email" placeholder="Insira seu email aqui.. " required><br><br>
+        </div>
         <button type="submit">Cadastrar</button>
 
     </form>
-
-
-    <hr>
+    </div>
+    <div id="registros">
+    
     <h3>Usuários cadastrados</h3>
-    <table border="1" cellpadding="10">
+    <table cellspacing="0">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Email</th>
+                <th></th>
             </tr>
         </thead>
-    
+    <tbody>
    
         <?php
-            $sql = "SELECT * FROM usuarios ORDER BY id DESC";
+            $sql = "SELECT * FROM usuarios ORDER BY id ASC";
             $resultado = $conexao-> query($sql);
             
+        if(!empty($resultado)){
             while($row = $resultado->fetch_assoc()){
-                echo "<tr>
-                <td id='id'>{$row['id']}</td>
+                echo "<tr class='results'>
+                <td>{$row['id']}</td>
                 <td>{$row['nome']}</td>
                 <td>{$row['email']}</td>
-                <td><form method='POST' action='index.php'><button type='submit' class='butao'>Delete</button></td>
+                <td>
+                <form method='POST' action='excluir.php' id='form'>
+                <input type='hidden' value='{$row['id']}' id='id' name='id'>
+                <button type='submit' class='butao'>Delete</button>
+                </form>
+                </td>
                 
                 <tr>";
                 
 
+            }}else if(empty($resultado->fetch_assoc())){
+                echo "<tr class='results'><td colspan='4'>Sem informações aqui</td></tr>";
             }
-        
+            
         ?>
-    
+
+</tbody>
 </table>
+</div>
 </body>
 </html>

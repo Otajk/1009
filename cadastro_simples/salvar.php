@@ -10,7 +10,7 @@
     $sql = "INSERT INTO usuarios (nome, email) VALUES ('$nome', '$email')";
     $conexao->query($sql);
     
-
+    
     //Redireciona para a pagina inicial após clicar em submit
     header("Location: index.php");
     exit;
